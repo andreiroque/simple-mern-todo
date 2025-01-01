@@ -20,6 +20,29 @@ const taskSchema = new mongoose.Schema({
 
 const taskModel = mongoose.model("tasks", taskSchema);
 
+app.post("/api/newtask", async (req, res) => {
+  const { name, status } = req.body;
+
+  const newTask = new taskModel({ name, status });
+
+  try {
+    await newTask
+      .save()
+      .then(() => console.log("Task saved to the database successfully"))
+      .catch((err) => console.error(err));
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+app.get("/api/tasks", async (req, res) => {
+  try {
+    const tasks = await taskModel.find();
+    res.send(tasks);
+  } catch (err) {
+    console.error(err);
+  }
+});
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server Listening at port ${PORT}`);
