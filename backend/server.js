@@ -43,6 +43,22 @@ app.get("/api/tasks", async (req, res) => {
     console.error(err);
   }
 });
+
+app.post("/api/update/status", async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    await taskModel
+      .updateOne({ _id: id }, { status: "Done" })
+      .then(() => console.log("Task successfully updated"))
+      .catch((err) => console.error(err));
+  } catch (err) {
+    console.error(err);
+  }
+
+  console.log(`ObjectId('${id}')`);
+});
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server Listening at port ${PORT}`);
