@@ -56,8 +56,8 @@ const App = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tasks.map((task, index) => (
-              <TableRow key={index}>
+            {tasks.map((task) => (
+              <TableRow key={task._id}>
                 <TableCell>{task.name}</TableCell>
                 <TableCell>{task.status}</TableCell>
                 <TableCell>{<Button variant="outline">Done</Button>}</TableCell>
