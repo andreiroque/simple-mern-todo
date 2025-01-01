@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
 import {
@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "./components/ui/table";
+import axios from "axios";
 
 const App = () => {
   const [tasks, setTask] = useState([]);
@@ -18,12 +19,25 @@ const App = () => {
 
   const addNewTask = () => {
     if (taskRef.current.value != "") {
-      //Send task to server.
+      axios
+        .post("http://localhost:5000/api/newtask", {
+          name: taskRef.current.value,
+          status: "Pending",
+        })
+        .catch((err) => console.error(err));
 
-      setTask([...tasks, { name: taskRef.current.value, status: "Pending" }]);
       taskRef.current.value = "";
     }
   };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/tasks")
+      .then((response) => {
+        setTask(response.data);
+      })
+      .catch((err) => console.error(err));
+  }, [tasks]);
 
   return (
     <div className="h-screen flex justify-center items-center flex-col gap-5 font-mono">
