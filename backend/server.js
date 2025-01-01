@@ -13,6 +13,11 @@ mongoose
   .then(() => console.log("Successfully Connected to the Database!"))
   .catch((err) => console.error(err));
 
+const taskSchema = new mongoose.Schema({
+  name: String,
+  status: String,
+});
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server Listening at port ${PORT}`);
