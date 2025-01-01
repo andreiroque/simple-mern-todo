@@ -18,6 +18,8 @@ const taskSchema = new mongoose.Schema({
   status: String,
 });
 
+const taskModel = mongoose.model("tasks", taskSchema);
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server Listening at port ${PORT}`);
