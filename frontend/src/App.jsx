@@ -30,6 +30,12 @@ const App = () => {
     }
   };
 
+  const markTaskAsDone = (id) => {
+    axios
+      .post("http://localhost:5000/api/update/status", { id: id })
+      .catch((err) => console.error(err));
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/tasks")
@@ -60,7 +66,18 @@ const App = () => {
               <TableRow key={task._id}>
                 <TableCell>{task.name}</TableCell>
                 <TableCell>{task.status}</TableCell>
-                <TableCell>{<Button variant="outline">Done</Button>}</TableCell>
+                <TableCell>
+                  {
+                    <Button
+                      onClick={() => {
+                        markTaskAsDone(task._id);
+                      }}
+                      variant="outline"
+                    >
+                      Done
+                    </Button>
+                  }
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
