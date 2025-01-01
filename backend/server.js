@@ -12,3 +12,8 @@ mongoose
   .connect(process.env.MONGOOSE_URI, { directConnection: true })
   .then(() => console.log("Successfully Connected to the Database!"))
   .catch((err) => console.error(err));
+
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`Server Listening at port ${PORT}`);
+});
